@@ -1,103 +1,107 @@
----
-title: Quickstart for Codespaces
-intro: 'Try out {% data variables.product.prodname_codespaces %} in 5 minutes.'
-allowTitleToDifferFromFilename: true
-product: '{% data reusables.gated-features.codespaces %}'
-versions:
-  fpt: '*'
-  ghec: '*'
-type: quick_start
-topics:
-  - Codespaces
-redirect_from:
-  - /codespaces/codespaces-quickstart
----
+if not isfile("KavoConfig.JSON") then writefile("KavoConfig.JSON","{}")
+end
+game:GetService("StarterGui"):SetCore("SendNotification",{
+    Title = "SotryNight V1", -- Title of notification  Text = "story night" has been injected", -- Description of the notification
+    Duration = 6 -- How long the notification will be on they're screen
+})
+wait(3)
+local function GetURL(scripturl)
+  return game:HttpGet("https://raw.githubusercontent.com/BOYLABOAKO/SyctronicX4ROBLOX/main/"..scripturl, true)
+end
+local players = game:GetService("Players")
+local lplr = players.LocalPlayer
+local bedwars = {}
+local kavo = loadstring(GetURL("Libraries/kavo.lua"))()
+local window = kavo.CreateLib("My firstscript", "RedBerry")
 
-## Introduction
+local MainToggle = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local ToggleBtn = Instance.new("ImageButton")
 
-In this guide, you'll create a codespace from a [template repository](https://github.com/2percentsilk/haikus-for-codespaces) and explore some of the essential features available to you within the codespace.
+MainToggle.Name = "MainToggle"
+MainToggle.Parent = game.CoreGui
+MainToggle.ResetOnSpawn = false
 
-From this quickstart, you will learn how to create a codespace, connect to a forwarded port to view your running application, use version control in a codespace, and personalize your setup with extensions.
+Frame.Parent = MainToggle
+Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+Frame.BackgroundTransparency = 0.200
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.0109622413, 0, 0.0136186769, 0)
+Frame.Size = UDim2.new(0, 100, 0, 100)
 
-For more information on exactly how {% data variables.product.prodname_codespaces %} works, see the companion guide "[Deep dive into {% data variables.product.prodname_codespaces %}](/codespaces/getting-started/deep-dive)."
+UICorner.Parent = Frame
 
-## Creating your codespace
+ToggleBtn.Name = "ToggleBtn"
+ToggleBtn.Parent = Frame
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ToggleBtn.BackgroundTransparency = 1.000
+ToggleBtn.Size = UDim2.new(1, 0, 1, 0)
+ToggleBtn.Image = "rbxassetid://9423059734"
+ToggleBtn.MouseButton1Down:connect(function()
+  kavo:ToggleUI()
+end)
 
-1. Navigate to the [template repository](https://github.com/2percentsilk/haikus-for-codespaces) and select **Use this template**. 
+local function TJTYGU_fake_script()
+	local script = Instance.new('LocalScript', ToggleBtn)
 
-2. Name your repository, select your preferred privacy setting, and click **Create repository from template**.
+	function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+	
+	counter = 0
+	
+	while wait(0.1)do
+		script.Parent.ImageColor3 = Color3.fromHSV(zigzag(counter),1,1)
+	
+		counter = counter + 0.01
+	end
+end
+coroutine.wrap(TJTYGU_fake_script)()
 
-3. Navigate to the main page of the newly created repository. Under the repository name, use the **{% octicon "code" aria-label="The code icon" %} Code** drop-down menu, and in the **Codespaces** tab, click **Create codespace on main**.
 
-  ![New codespace button](/assets/images/help/codespaces/new-codespace-button.png)
+local prophunt= window:NewTab("prophunt")
+local Credit = window:NewTab("Credit")
 
-## Running the application
 
-Once your codespace is created, your repository will be automatically cloned into it. Now you can run the application and launch it in a browser.
+local Vamp = Credit:NewSection("Vamp")
+local TheGreatKiller = Credit:NewSection("TheGreatKiller")
+local InfJump = prophunt:NewSection("InfJump")
+local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then	game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+local FovChanger = prophunt:NewSection("FovChanger")
+Workspace.CurrentCamera.FieldOfView = 140
+local KillAll = prophunt:NewSection("KillAll")
+KillAll:NewToggle("KillAll", "local LocalPlayer = game.Players.LocalPlayer
+while wait() do
+    for i, v in next, game.Players:GetChildren() do
+        if v ~= LocalPlayer then
+            pcall(
+                function()
+                    local args = {
+                        [1] = LocalPlayer.Character.HumanoidRootPart.CFrame.p,
+                        [2] = CFrame.lookAt(
+                            LocalPlayer.Character.HumanoidRootPart.CFrame.p,
+                            v.Character.HumanoidRootPart.CFrame.p
+                        ).lookVector *
+                            (v.Character.HumanoidRootPart.CFrame.p - LocalPlayer.Character.HumanoidRootPart.CFrame.p).magnitude,
+                        [3] = {
+                            ["instance"] = v.Character.HumanoidRootPart,
+                            ["normal"] = Vector3.new(1, 0, 0),
+                            ["position"] = v.Character.HumanoidRootPart.Position
+                        },
+                        [4] = math.random(),
+                        [5] = false
+                    }
+                    game:GetService("ReplicatedStorage"):FindFirstChild("events-shared/networking@NetEvents").shoot:FireServer(
+                        unpack(args)
+                    )
+                end
+            )
+        end
+    end
+end", function(callback) if callback then print("Toggle On") else print("Toggle Off") end end)
 
-1. Since this example uses a Node.js project, start the application by entering `npm run dev` in the terminal. This command executes the `dev` script in the package.json file and starts up the web application defined in the sample repository.
-   
-   ![npm run dev in terminal](/assets/images/help/codespaces/codespaces-npm-run-dev.png)
 
-    If you're following along with a different application type, enter the corresponding start command for that project.
-
-2. When your application starts, the codespace recognizes the port the application is running on and displays a prompt to let you know it has been forwarded. 
-
-  ![Port forwarding toast](/assets/images/help/codespaces/quickstart-port-toast.png)
-
-3. Click **Open in Browser** to view your running application in a new tab.
-
-## Edit the application and view changes
-
-1. Switch back to your codespace and open the `haikus.json` file by double-clicking it in the File Explorer.
-
-2. Edit the `text` field of the first haiku to personalize the application with your own haiku.
-
-3. Go back to the running application tab in your browser and refresh to see your changes.
-   
-  {% octicon "light-bulb" aria-label="The lightbulb icon" %}  If you've closed the tab, open the Ports panel and click the **Open in browser** icon for the running port.
-  ![Port Forwarding Panel](/assets/images/help/codespaces/quickstart-forward-port.png)
-
-## Committing and pushing your changes
-
-Now that you've made a few changes, you can use the integrated terminal or the source view to commit and push the changes back to the remote.
-
-{% data reusables.codespaces.source-control-display-dark %}
-1. To stage your changes, click  **+** next to the file you've changed, or next to **Changes** if you've changed multiple files and you want to stage them all.
-![Source control side bar with staging button highlighted](/assets/images/help/codespaces/codespaces-commit-stage.png)
-1. Type a commit message describing the change you've made.
-![Source control side bar with a commit message](/assets/images/help/codespaces/codespaces-commit-commit-message.png)  
-1. To commit your staged changes, click the check mark at the top the source control side bar.
-![Click the check mark icon](/assets/images/help/codespaces/codespaces-commit-checkmark-icon.png)  
-    You can push the changes you've made. This applies those changes to the upstream branch on the remote repository. You might want to do this if you're not yet ready to create a pull request, or if you prefer to create a pull request on {% data variables.product.prodname_dotcom %}.
-1. At the top of the side bar, click the ellipsis (**...**).
-![Ellipsis button for View and More Actions](/assets/images/help/codespaces/source-control-ellipsis-button-nochanges.png)
-1. In the drop-down menu, click **Push**.
-
-## Personalizing with an extension
-
-Within a codespace, you have access to the Visual Studio Code Marketplace. For this example, you'll install an extension that alters the theme, but you can install any extension that is useful for your workflow.
-
-1. In the left sidebar, click the Extensions icon.
-
-2.  In the search bar, enter `fairyfloss` and install the fairyfloss extension.
-
-  ![Add an extension](/assets/images/help/codespaces/add-extension.png)
-
-3. Select the `fairyfloss` theme by selecting it from the list.
-
-  ![Select the fairyfloss theme](/assets/images/help/codespaces/fairyfloss.png)
-
-4. Changes you make to your editor setup in the current codespace, such as theme and keyboard bindings, are synced automatically via [Settings Sync](https://code.visualstudio.com/docs/editor/settings-sync) to any other codespaces you open and any instances of Visual Studio Code that are signed into your GitHub account.
-
-## Next Steps
-
-You've successfully created, personalized, and run your first application within a codespace but there's so much more to explore! Here are some helpful resources for taking your next steps with {% data variables.product.prodname_codespaces %}.
-  - [Deep dive](/codespaces/getting-started/deep-dive): This quickstart presented some of the features of {% data variables.product.prodname_codespaces %}. The deep dive looks at these areas from a technical standpoint.
-  - [Setting up your project for {% data variables.product.prodname_codespaces %}](/codespaces/getting-started-with-codespaces): These guides provide information on setting up your project to use {% data variables.product.prodname_codespaces %} with specific languages.
-  - [Configuring {% data variables.product.prodname_codespaces %} for your project](/codespaces/setting-up-your-codespace/configuring-codespaces-for-your-project): This guide provides details on creating a custom configuration for {% data variables.product.prodname_codespaces %} for your project.
-
-## Further reading
-
-- [Enabling {% data variables.product.prodname_codespaces %} for your organization](/codespaces/managing-codespaces-for-your-organization/enabling-codespaces-for-your-organization)
-- [Managing billing for {% data variables.product.prodname_codespaces %} in your organization](/codespaces/managing-codespaces-for-your-organization/managing-billing-for-codespaces-in-your-organization)
